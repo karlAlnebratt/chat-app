@@ -30,5 +30,5 @@ mutation CreateMessage($text:  String) {
 Add following query variables (in the bottom panel of the graphql UI)
 
 ```JSON
-{ "text": "This is a fourth message" }
+{ "text": "This is a message" }
 ```
