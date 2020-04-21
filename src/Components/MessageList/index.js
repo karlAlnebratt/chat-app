@@ -1,13 +1,14 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import {
-  MESSAGES_QUERY,
-} from '../../Schema'
 
+import { MESSAGES_QUERY } from '../../Schema'
 
 function MessageList () {
   const { loading, error, data: { messages = [] } = {} } = useQuery(
-    MESSAGES_QUERY
+    MESSAGES_QUERY,
+    {
+      pollInterval: 500
+    }
   )
 
   if (loading) return 'Loading...'
