@@ -1,4 +1,4 @@
-import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -8,16 +8,3 @@ const client = new ApolloClient({
 });
 
 export default client
-
-// DEBUG
-client.query({
-  query: gql`
-    {
-      messages {
-        text
-      }
-    }
-  `
-}).then((result) => {
-  console.log(result)
-})
