@@ -1,13 +1,23 @@
-import { useMutation } from '@apollo/client'
 import React, { useRef } from 'react'
-import {
-  CREATE_MESSAGE,
-} from '../../Schema'
+import { useMutation } from '@apollo/client'
 
+import { MESSAGES_QUERY, CREATE_MESSAGE } from '../../Schema'
+
+const updateMessagesCache = (cache, newMessage) => {
+  const { messages } = cache.readQuery({ query: MESSAGES_QUERY })
+  cache.writeQuery({
+    query: MESSAGES_QUERY,
+    data: { messages: messages.concat([newMessage]) }
+  })
+}
 
 function MessageForm () {
   const inputRef = useRef(null)
-  const [createMessage, { loading, error }] = useMutation(CREATE_MESSAGE)
+  const [createMessage, { loading, error }] = useMutation(CREATE_MESSAGE, {
+    update (cache, { data: { createMessage: newMessage } }) {
+      updateMessagesCache(cache, newMessage)
+    }
+  })
   error && console.error(error) // TODO: Handle error
 
   return (
