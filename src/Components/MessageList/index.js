@@ -1,15 +1,9 @@
 import React from 'react'
-import { useQuery, gql } from '@apollo/client'
+import { useQuery } from '@apollo/client'
+import {
+  MESSAGES_QUERY,
+} from '../../Schema'
 
-const MESSAGES_QUERY = gql`
-  query GetMessages {
-    messages {
-      id
-      text
-      created
-    }
-  }
-`
 
 function MessageList () {
   const { loading, error, data: { messages = [] } = {} } = useQuery(

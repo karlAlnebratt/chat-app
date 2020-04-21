@@ -1,18 +1,9 @@
-import {
-  useMutation,
-  gql,
-} from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import React, { useRef } from 'react'
+import {
+  CREATE_MESSAGE,
+} from '../../Schema'
 
-const CREATE_MESSAGE = gql`
-  mutation CreateMessage($text: String) {
-    createMessage(text: $text) {
-      id
-      text
-      created
-    }
-  }
-`
 
 function MessageForm () {
   const inputRef = useRef(null)
