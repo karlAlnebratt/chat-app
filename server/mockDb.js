@@ -18,12 +18,3 @@ module.exports = {
   getMessages,
   setMessage,
 }
-// DEBUG
-setMessage(createMessage({ text: 'This is a test message' }))
-setTimeout(() => {
-  setMessage(createMessage({ text: 'This is a second test message' }))
-}, 1000)
-setTimeout(() => {
-  setMessage(createMessage({ text: 'This is a third test message' }))
-}, 2000)
-
