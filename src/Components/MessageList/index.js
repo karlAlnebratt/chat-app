@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 
 import { MESSAGES_QUERY } from '../../Schema'
+import DateTime from '../DateTime'
 
 import './MessageList.css'
 
@@ -20,7 +21,7 @@ function MessageList () {
     <ol className='message-list'>
       {messages.map(({ id, text, created }) => (
         <li className='message-list__item' key={id}>
-          <time className='message-list__time' dateTime={created}>{created}</time>
+          <span className='message-list__time'><DateTime dateString={created}/></span>
           <span className='message-list__text'>{text}</span>
         </li>
       ))}
