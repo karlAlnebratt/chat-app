@@ -1,0 +1,21 @@
+.chat-app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  height: calc(100vh - 40px);
+  overflow: scroll;
+}
+
+.form-wrapper {
+  flex: 0 1 40px;
+  padding: 20px;
+  background-color: #747474;
+  border-top: 2px solid #333;
+}

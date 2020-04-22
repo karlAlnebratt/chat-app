@@ -3,6 +3,8 @@ import { useMutation } from '@apollo/client'
 
 import { MESSAGES_QUERY, CREATE_MESSAGE } from '../../Schema'
 
+import './MessageForm.css'
+
 const updateMessagesCache = (cache, newMessage) => {
   const { messages } = cache.readQuery({ query: MESSAGES_QUERY })
   cache.writeQuery({
@@ -28,16 +30,20 @@ function MessageForm () {
         const text = inputRef.current.value
         if (text.length) {
           createMessage({ variables: { text } })
-        inputRef.current.value = ''
+          inputRef.current.value = ''
         }
       }}
     >
       <input
+        className='message-form__input'
         ref={inputRef}
         type='text'
         placeholder='Start typing your message'
       />
-      <button disabled={loading} type='submit'>
+      <button
+        className='message-form__submit'
+        disabled={loading}
+        type='submit'>
         Send
       </button>
     </form>

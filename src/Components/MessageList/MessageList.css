@@ -1,0 +1,56 @@
+.message-list {
+  list-style: none;
+  margin: auto 10px 0;
+  padding: 0 0 10px;
+  width: 100%;
+}
+
+.message-list__item {
+  position: relative;
+  margin: 0 0 20px 10px;
+  display: block;
+  max-width: 500px;
+  float: left;
+  clear: both;
+}
+
+.message-list__item--own {
+  float: right;
+}
+
+.message-list__time {
+  display: block;
+  font-size: 1.2rem;
+  color: #484848;
+  margin-bottom: 10px;
+}
+
+.message-list__text::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid #79af64;
+  margin-top: -15px;
+}
+.message-list__text {
+  display: block;
+  background-color: #79af64;
+  padding: 10px;
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  border-radius: 5px;
+}
+
+.message-list__item--own .message-list__text::before {
+  border-bottom-color: #6490af
+}
+
+.message-list__item--own .message-list__text {
+  background-color: #6490af;
+}
