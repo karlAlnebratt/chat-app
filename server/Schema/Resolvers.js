@@ -28,8 +28,8 @@ const resolvers = {
   },
   Mutation: {
     createMessage (root, args, context) {
-      const { text } = args
-      const message = createMessage({ text })
+      const { text, userId } = args
+      const message = createMessage({ text, userId })
       return setMessage(message)
     },
     createUser (root, args, context) {

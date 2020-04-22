@@ -5,10 +5,11 @@ const MESSAGES = []
 
 const USERS = []
 
-const createMessage = ({ text, id = uuidv4(), created = new Date() }) => ({
+const createMessage = ({ text, userId, id = uuidv4(), created = new Date() }) => ({
   id,
   created,
-  text
+  text,
+  user: getUser(userId)
 })
 
 const getMessages = () => MESSAGES

@@ -3,15 +3,16 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
   scalar DateTime
 
-  type Message {
-    id: ID!
-    text: String!
-    created: DateTime!
-  }
-
   type User {
     id: ID!
     username: String!
+    created: DateTime!
+  }
+
+  type Message {
+    id: ID!
+    user: User!
+    text: String!
     created: DateTime!
   }
 
@@ -22,7 +23,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createMessage(text: String): Message
+    createMessage(text: String userId: ID): Message
     createUser(username: String): User
   }
 `
