@@ -13,7 +13,7 @@ function App () {
   const {
     loading,
     error,
-    data: { isLoggedIn }
+    data: { isLoggedIn } = {}
   } = useQuery(IS_LOGGED_IN_QUERY)
   const {
     loading: loadingUser,
