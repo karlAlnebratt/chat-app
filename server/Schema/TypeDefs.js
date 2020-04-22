@@ -1,10 +1,12 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+  scalar DateTime
+
   type Message {
     id: ID!
     text: String!
-    created: String
+    created: DateTime!
   }
 
   type Query {
