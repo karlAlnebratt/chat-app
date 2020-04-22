@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
 import { useMutation } from '@apollo/client'
 
@@ -13,7 +14,7 @@ const updateMessagesCache = (cache, newMessage) => {
   })
 }
 
-function MessageForm () {
+function MessageForm ({ user }) {
   const inputRef = useRef(null)
   const [createMessage, { loading, error }] = useMutation(CREATE_MESSAGE, {
     update (cache, { data: { createMessage: newMessage } }) {
@@ -29,7 +30,7 @@ function MessageForm () {
         e.preventDefault()
         const text = inputRef.current.value
         if (text.length) {
-          createMessage({ variables: { text } })
+          createMessage({ variables: { text, userId: user.id } })
           inputRef.current.value = ''
         }
       }}
@@ -40,14 +41,15 @@ function MessageForm () {
         type='text'
         placeholder='Start typing your message'
       />
-      <button
-        className='message-form__submit'
-        disabled={loading}
-        type='submit'>
+      <button className='message-form__submit' disabled={loading} type='submit'>
         Send
       </button>
     </form>
   )
+}
+
+MessageForm.propTypes = {
+  user: PropTypes.object.isRequired
 }
 
 export default MessageForm

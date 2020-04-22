@@ -1,47 +1,46 @@
-import {
-  useQuery,
-} from '@apollo/client'
-import React, {
-  
-} from 'react'
+import { useQuery } from '@apollo/client'
+import React from 'react'
 import Login from './Components/Login'
 import MessageForm from './Components/MessageForm'
 import MessageList from './Components/MessageList'
-import {
-  IS_LOGGED_IN_QUERY,
-} from './Schema'
+import { IS_LOGGED_IN_QUERY, USER_QUERY } from './Schema'
 
 import './App.css'
 
+const wrapper = children => <div className='chat-app'>{children}</div>
+
 function App () {
-  const { loading, error, data: { isLoggedIn } } = useQuery(IS_LOGGED_IN_QUERY)
-  let content = 'Loading'
-
-  if(!loading && !error && !isLoggedIn) {
-    content = <Login />
+  const {
+    loading,
+    error,
+    data: { isLoggedIn }
+  } = useQuery(IS_LOGGED_IN_QUERY)
+  const {
+    loading: loadingUser,
+    error: errorUser,
+    data: { user } = {}
+  } = useQuery(USER_QUERY, { variables: { id: localStorage.getItem('userId') } })
+  if (loading || loadingUser) {
+    return wrapper('Loading...')
   }
 
-  if(!loading && !error && isLoggedIn) {
-    content = (
-      <>
-        <div className='messages-wrapper'>
-          <MessageList />
-        </div>
-        <div className='form-wrapper'>
-          <MessageForm />
-        </div>
-      </>
-    )
+  if (error || errorUser) {
+    return wrapper('Something went wrong pleas try again later')
   }
 
-  if(error) {
-    content = 'Something went wrong pleas try again later'
+  if (!isLoggedIn) {
+    return wrapper(<Login />)
   }
 
-  return (
-    <div className='chat-app'>
-      {content}
-    </div>
+  return wrapper(
+    <>
+      <div className='messages-wrapper'>
+        <MessageList user={user} />
+      </div>
+      <div className='form-wrapper'>
+        <MessageForm user={user} />
+      </div>
+    </>
   )
 }
 

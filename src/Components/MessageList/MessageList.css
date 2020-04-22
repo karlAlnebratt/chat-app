@@ -18,7 +18,7 @@
   float: right;
 }
 
-.message-list__time {
+.message-list__info {
   display: block;
   font-size: 1.2rem;
   color: #484848;
@@ -38,7 +38,7 @@
   margin-top: -15px;
 }
 .message-list__text {
-  display: block;
+  display: inline-block;
   background-color: #79af64;
   padding: 10px;
   color: #fff;
@@ -48,9 +48,11 @@
 }
 
 .message-list__item--own .message-list__text::before {
-  border-bottom-color: #6490af
+  border-bottom-color: #6490af;
+  right: 10px;
 }
 
 .message-list__item--own .message-list__text {
   background-color: #6490af;
+  float: right;
 }

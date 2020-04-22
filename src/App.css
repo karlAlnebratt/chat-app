@@ -1,11 +1,13 @@
 .chat-app {
-  display: grid;
-  grid-template-columns: 100vw;
-  grid-template-rows: calc(100vh - 80px) 80px;
   position: relative;
-  width: 100vw;
+  display: grid;
+  grid-template-columns: 50vw;
+  grid-template-rows: calc(100vh - 80px) 80px;
+  width: 50vw;
   height: 100vh;
+  margin: 0 auto;
   overflow: hidden;
+  background: #fafafa;
 }
 
 .messages-wrapper {
@@ -19,4 +21,13 @@
   padding: 20px;
   background-color: #747474;
   border-top: 2px solid #333;
+}
+
+@media (max-width: 1000px) {
+  .chat-app {
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: calc(100vh - 80px) 80px;
+    width: 100vw;
+  }
 }

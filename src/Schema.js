@@ -8,6 +8,10 @@ const fragments = {
       id
       text
       created
+      user {
+        id
+        username
+      }
     }
   `,
   user:  gql`
@@ -20,8 +24,8 @@ const fragments = {
 }
 
 export const CREATE_MESSAGE = gql`
-  mutation CreateMessage($text: String) {
-    createMessage(text: $text) {
+  mutation CreateMessage($text: String $userId: ID) {
+    createMessage(text: $text userId: $userId ) {
       ...MessageFragment
     }
   }
@@ -47,8 +51,8 @@ export const CREATE_USER = gql`
 `
 
 export const USER_QUERY = gql`
-  query GetUser {
-    user {
+  query GetUser($id: ID) {
+    user(id: $id) {
       ...UserFragment
     }
   }
