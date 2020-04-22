@@ -1,6 +1,6 @@
 import classname from 'classname'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useQuery } from '@apollo/client'
 
 import { MESSAGES_QUERY } from '../../Schema'
@@ -9,6 +9,7 @@ import DateTime from '../DateTime'
 import './MessageList.css'
 
 function MessageList ({ user }) {
+  const refContainer = useRef(null)
   const { loading, error, data: { messages = [] } = {} } = useQuery(
     MESSAGES_QUERY,
     {
@@ -16,11 +17,16 @@ function MessageList ({ user }) {
     }
   )
 
+  useEffect(() => {
+    const el = refContainer.current ? refContainer.current.lastChild : null
+    el && el.scrollIntoView()
+  }, [messages.length])
+
   if (loading) return 'Loading...'
   if (error) return 'Something went wrong, pleas try again later'
 
   return (
-    <ol className='message-list'>
+    <ol ref={refContainer} className='message-list'>
       {messages.map(({ id, text, created, user: { username, id: userId } }) => (
         <li
           className={classname('message-list__item', {
