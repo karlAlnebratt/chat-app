@@ -29,7 +29,7 @@ const client = new ApolloClient({
 
     }),
     new HttpLink({
-      uri: 'http://192.168.1.206:4000',
+      uri: 'http://localhost:4000',
     })
   ]),
 });
