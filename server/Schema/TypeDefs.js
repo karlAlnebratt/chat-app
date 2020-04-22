@@ -18,7 +18,7 @@ const typeDefs = gql`
 
   type Query {
     messages: [Message]
-    user(id: ID!): User
+    user(id: ID): User
     users: [User]
   }
 
