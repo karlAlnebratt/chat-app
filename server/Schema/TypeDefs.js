@@ -9,12 +9,21 @@ const typeDefs = gql`
     created: DateTime!
   }
 
+  type User {
+    id: ID!
+    username: String!
+    created: DateTime!
+  }
+
   type Query {
     messages: [Message]
+    user(id: ID!): User
+    users: [User]
   }
 
   type Mutation {
     createMessage(text: String): Message
+    createUser(username: String): User
   }
 `
 

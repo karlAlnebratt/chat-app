@@ -4,6 +4,10 @@ const {
   createMessage,
   getMessages,
   setMessage,
+  createUser,
+  getUser,
+  getUsers,
+  setUser,
 } = require('../mockDb')
 
 const DateTimeResolver = new GraphQLScalarType({
@@ -18,14 +22,20 @@ const DateTimeResolver = new GraphQLScalarType({
 const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    messages: (root, args, context) => getMessages()
+    messages: (root, args, context) => getMessages(),
+    user: (root, { id }, context) => getUser(id),
+    users: (root, args, context) => getUsers()
   },
   Mutation: {
     createMessage (root, args, context) {
       const { text } = args
       const message = createMessage({ text })
-      setMessage(message)
-      return message
+      return setMessage(message)
+    },
+    createUser (root, args, context) {
+      const { username } = args
+      const user = createUser({ username })
+      return setUser(user)
     }
   }
 }
