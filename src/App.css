@@ -1,20 +1,21 @@
 .chat-app {
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: calc(100vh - 80px) 80px;
+  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .messages-wrapper {
-  flex: 1 1 auto;
   display: flex;
-  height: calc(100vh - 40px);
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .form-wrapper {
-  flex: 0 1 40px;
+  width: 100%;
+  height: 80px;
   padding: 20px;
   background-color: #747474;
   border-top: 2px solid #333;
