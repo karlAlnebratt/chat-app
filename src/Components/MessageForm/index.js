@@ -22,10 +22,14 @@ function MessageForm () {
 
   return (
     <form
+      className='message-form'
       onSubmit={e => {
         e.preventDefault()
-        createMessage({ variables: { text: inputRef.current.value } })
+        const text = inputRef.current.value
+        if (text.length) {
+          createMessage({ variables: { text } })
         inputRef.current.value = ''
+        }
       }}
     >
       <input
