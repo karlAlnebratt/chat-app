@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
-import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow, parseISO } from 'date-fns'
 
 const config = {
   addSuffix: true
 }
 
 function DateTime ({ dateString }) {
-  const date = new Date(dateString)
   const [formattedDate, setFormatDate] = useState(
-    formatDistanceToNow(date, config)
+    formatDistanceToNow(parseISO(dateString), config)
   )
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setFormatDate(formatDistanceToNow(date, config))
+      setFormatDate(formatDistanceToNow(parseISO(dateString), config))
     }, 30 * 1000)
     return () => clearInterval(timer)
-  })
+  }, [dateString])
 
   return <time  dateTime={dateString}>{formattedDate}</time>
 }
