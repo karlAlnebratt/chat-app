@@ -3,6 +3,9 @@ import React from 'react'
 import Login from './Components/Login'
 import MessageForm from './Components/MessageForm'
 import MessageList from './Components/MessageList'
+import {
+  USER_ID,
+} from './Constants'
 import { IS_LOGGED_IN_QUERY, USER_QUERY } from './Schema'
 
 import './App.css'
@@ -11,6 +14,11 @@ const wrapper = children => <div className='chat-app'>{children}</div>
 
 function App () {
   const client = useApolloClient()
+  const reset = () => {
+    localStorage.clear(USER_ID)
+    client.clearStore()
+    window.location.reload()
+  }
   const { loading, error, data: { isLoggedIn } = {} } = useQuery(
     IS_LOGGED_IN_QUERY
   )
@@ -19,13 +27,15 @@ function App () {
     error: errorUser,
     data: { user } = {}
   } = useQuery(USER_QUERY, {
-    variables: { id: localStorage.getItem('userId') },
+    variables: { id: localStorage.getItem(USER_ID) },
     onCompleted ({ user }) {
       if (isLoggedIn && !user) {
-        localStorage.clear('userId')
-        client.clearStore()
-        window.location.reload()
+        reset()
       }
+    },
+    onError(err) {
+      console.log(err)
+      reset()
     }
   })
   if ((loading || loadingUser) || (isLoggedIn && !user)) {
