@@ -2,6 +2,9 @@ import { ApolloClient, HttpLink, ApolloLink, InMemoryCache } from '@apollo/clien
 import { onError } from "@apollo/link-error";
 
 import {
+  USER_ID,
+} from './Constants'
+import {
   IS_LOGGED_IN_QUERY,
 } from './Schema'
 
@@ -10,7 +13,7 @@ const cache = new InMemoryCache()
 cache.writeQuery({
   query: IS_LOGGED_IN_QUERY,
   data: {
-    isLoggedIn: !!localStorage.getItem('userId')
+    isLoggedIn: !!localStorage.getItem(USER_ID)
   },
 });
 

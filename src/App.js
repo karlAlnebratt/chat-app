@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useApolloClient, useQuery } from '@apollo/client'
 import React from 'react'
 import Login from './Components/Login'
 import MessageForm from './Components/MessageForm'
@@ -10,17 +10,25 @@ import './App.css'
 const wrapper = children => <div className='chat-app'>{children}</div>
 
 function App () {
-  const {
-    loading,
-    error,
-    data: { isLoggedIn } = {}
-  } = useQuery(IS_LOGGED_IN_QUERY)
+  const client = useApolloClient()
+  const { loading, error, data: { isLoggedIn } = {} } = useQuery(
+    IS_LOGGED_IN_QUERY
+  )
   const {
     loading: loadingUser,
     error: errorUser,
     data: { user } = {}
-  } = useQuery(USER_QUERY, { variables: { id: localStorage.getItem('userId') } })
-  if (loading || loadingUser) {
+  } = useQuery(USER_QUERY, {
+    variables: { id: localStorage.getItem('userId') },
+    onCompleted ({ user }) {
+      if (isLoggedIn && !user) {
+        localStorage.clear('userId')
+        client.clearStore()
+        window.location.reload()
+      }
+    }
+  })
+  if ((loading || loadingUser) || (isLoggedIn && !user)) {
     return wrapper('Loading...')
   }
 

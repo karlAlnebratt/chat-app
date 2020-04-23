@@ -1,6 +1,9 @@
 import { useMutation } from '@apollo/client'
 import React, { useRef } from 'react'
 import {
+  USER_ID,
+} from '../../Constants'
+import {
   CREATE_USER,
   IS_LOGGED_IN_QUERY,
   USER_QUERY,
@@ -9,7 +12,7 @@ import {
 import './Login.css'
 
 const updateUsersCache = (cache, user) => {
-  localStorage.setItem('userId', user.id)
+  localStorage.setItem(USER_ID, user.id)
   cache.writeQuery({
     query: USER_QUERY,
     data: { user: user }
