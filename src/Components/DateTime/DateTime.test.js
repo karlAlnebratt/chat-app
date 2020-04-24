@@ -23,4 +23,4 @@ describe('DateTime', () => {
       expect(linkElement).toBeInTheDocument()
     })
   })
-
+})
